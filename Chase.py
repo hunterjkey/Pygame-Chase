@@ -15,7 +15,7 @@ pygame.init()
 size = (700, 500)
 screen = pygame.display.set_mode(size)
  
-pygame.display.set_caption("My Game")
+pygame.display.set_caption("Chase!")
  
 # Loop until the user clicks the close button.
 done = False
