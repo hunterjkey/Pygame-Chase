@@ -121,21 +121,45 @@ while not done:
         BOXESY = random.randint(50,450)
         if (len(boxesX)<300):
             for i in range(boxboost):
-                for i in range(len(boxesX)):
+                escape = False
+                placementAcceptance = 0
+                while (escape == False):
+                    BOXESX = random.randint(50,650)
+                    BOXESY = random.randint(50,450)
+                    for i in range(len(boxesX)):
+                        if (abs(BOXESX-boxesX[i])>50) and (abs(BOXESY-boxesY[i])>50):
+                            placementAcceptance += 1
+                    if ((placementAcceptance + 1)>len(boxesX)):
+                        escape = True
+
+                #other box collision algorithm
+                """for i in range(len(boxesX)):
                     escape = False
                     while (escape == False):
                         if (abs(BOXESX-boxesX[i])<12) and (abs(BOXESY-boxesY[i])<12):
                             BOXESX = random.randint(50,650)
                             BOXESY = random.randint(50,450)
                         else:
-                            escape = True
+                            escape = True"""
                 boxesX.append(BOXESX)
                 boxesY.append(BOXESY)
-            for i in range(len(boxesX)):
+
+                escape = False
+                placementAcceptance = 0
+                while (escape == False):
+                    powerupX = random.randint(50,650)
+                    powerupY = random.randint(50,450)
+                    for i in range(len(boxesX)):
+                        if (abs(powerupX-boxesX[i])>100) and (abs(powerupY-boxesY[i])>100):
+                            placementAcceptance += 1
+                    if ((placementAcceptance)>=len(boxesX)):
+                        escape = True
+            #other box collision algorithm
+            """for i in range(len(boxesX)):
                 escape = False
                 while (escape == False):
                     powerTryCount += 1
-                    if (abs(powerupX-boxesX[i])<60) and (abs(powerupY-boxesY[i])<60):
+                    if (abs(powerupX-boxesX[i])<100) and (abs(powerupY-boxesY[i])<100):
                         powerupX = random.randint(50,650)
                         powerupY = random.randint(50,450)
                     elif (powerTryCount > 200):
@@ -144,7 +168,7 @@ while not done:
                         broken = True
                     else:
                         escape = True
-                        powerTryCount = 0
+                        powerTryCount = 0"""
 
     #collision detection
     if (abs(x-roboX)<12) and (abs(y-roboY)<12):
@@ -168,7 +192,7 @@ while not done:
         del(boxesY[c])
 
     #health checking code
-    if (health <= 0):
+    if (health == 0):
         done = True
     # --- Screen-clearing code goes here
  
@@ -189,7 +213,7 @@ while not done:
     healthX = 0
     pygame.draw.rect(screen, RED, [x, y, 25, 25])
     pygame.draw.rect(screen, GREEN, [roboX, roboY, 25, 25])
-    pygame.draw.rect(screen, WHITE, [powerupX, powerupY, 25, 25])
+    pygame.draw.ellipse(screen, WHITE, [powerupX, powerupY, 25, 25])
 
     #Score/Health text
     font = pygame.font.SysFont('Calibri', 25, True, False)
@@ -211,5 +235,4 @@ print(score)
 if (broken == True):
     print("You broke my game, good job, there was no way for you to continue!")
 pygame.quit()
- 
 
